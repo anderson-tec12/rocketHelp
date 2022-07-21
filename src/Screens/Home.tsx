@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Heading,
   HStack,
@@ -19,11 +20,28 @@ import Logo from "../assets/logo_secondary.svg";
 
 export function Home() {
   const { colors } = useTheme();
+  const navigation = useNavigation();
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
 
-  const [orders, setOrders] = useState<IORDERPROPS[]>([]);
+  const [orders, setOrders] = useState<IORDERPROPS[]>([
+    {
+      id: "11",
+      patrimony: "123",
+      status: "open",
+      when: "10/12/2022",
+    },
+  ]);
+
+  function handleOpenNewOrder() {
+    navigation.navigate("new");
+  }
+
+  function handleOpenDetails(orderId: string) {
+    navigation.navigate("details", { orderId });
+  }
+
   return (
     <VStack flex={1} pb={6} bg={"gray.700"}>
       <HStack
@@ -74,7 +92,9 @@ export function Home() {
             paddingBottom: 100,
           }}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Order data={item} onPress={() => ""} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           ListEmptyComponent={() => {
             return (
               <Center>
@@ -88,7 +108,7 @@ export function Home() {
           }}
         />
 
-        <Button title="Nova solicitação" />
+        <Button title="Nova solicitação" onPress={handleOpenNewOrder} />
       </VStack>
     </VStack>
   );
