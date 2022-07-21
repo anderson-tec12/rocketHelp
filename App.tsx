@@ -8,7 +8,9 @@ import { NativeBaseProvider, StatusBar } from "native-base";
 
 import { THEME } from "./src/styles/theme";
 
-import { SignIn } from "./src/Screens/SignIn";
+// import { SignIn } from "./src/Screens/SignIn";
+// import { Home } from "./src/Screens/Home";
+import { Register } from "./src/Screens/Register";
 import { Loading } from "./src/Components/Loading";
 
 export default function App() {
@@ -25,7 +27,7 @@ export default function App() {
         translucent
         // hidden
       />
-      {fontsLoad ? <SignIn /> : <Loading />}
+      {fontsLoad ? <Register /> : <Loading />}
     </NativeBaseProvider>
   );
 }
